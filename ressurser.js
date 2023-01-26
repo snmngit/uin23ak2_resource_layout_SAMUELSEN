@@ -94,3 +94,20 @@ const resources = [
         ]
     },
 ]
+const tabButtons = document.querySelectorAll('.tab-button');
+const contentDiv = document.getElementById('content');
+tabButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        let category = this.textContent;
+        let resource = resources.find(res => res.category === category);
+        contentDiv.innerHTML = `
+            <h2>${resource.category}</h2>
+            <p>${resource.text}</p>
+            <ul>
+                ${resource.sources.map(source => `<li><a href="${source.url}" target="_blank">${source.title}</a></li>`).join('')}
+            </ul>
+        `;
+    });
+});
